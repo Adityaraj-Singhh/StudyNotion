@@ -1,6 +1,8 @@
 // Import the required modules
 const express = require("express")
 const router = express.Router()
+const { checkRole } = require("../middlewares/checkRole");
+
 
 // Import the Controllers
 
@@ -89,7 +91,7 @@ router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
 // ********************************************************************************************************
 // Category can Only be Created by Admin
 // TODO: Put IsAdmin Middleware here
-router.post("/createCategory", auth, isAdmin, createCategory)
+router.post("/createCategory", auth, checkRole("Admin", "Instructor"), createCategory);
 router.get("/showAllCategories", showAllCategories)
 router.post("/getCategoryPageDetails", categoryPageDetails)
 
